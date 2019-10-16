@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  cenit:
+    environment:
+      - ENABLE_RERECAPTCHA=false
+      - RABBITMQ_BIGWIG_TX_URL=amqp://cenit_rabbit:cenit_rabbit@rabbitmq/cenit_rabbit_vhost
+      - UNICORN_WORKERS=5
+      - MAXIMUM_UNICORN_CONSUMERS=3
+      - MONGODB_URI=
+      - SKIP_MONGO_CLIENT=FALSE
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+      - rabbitmq
+    command: ["foreman", "start", "-f", "Procfile"]
+
+  rabbitmq:
+    image: rabbitmq:3.3-management
+    ports:
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_PASS: cenit_rabbit
+      RABBITMQ_DEFAULT_USER: cenit_rabbit
+      RABBITMQ_DEFAULT_VHOST: cenit_rabbit_vhost
+    labels:
+        NAME: "rabbitmq-server"
