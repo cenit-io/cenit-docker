@@ -47,8 +47,8 @@ RUN gem install foreman
 ENV SKIP_MONGO_CLIENT=TRUE
 
 #All copies
-COPY mongoid.yml config/mongoid.yml
-COPY ../Procfile Procfile
+COPY LOCAL/mongoid.yml config/mongoid.yml
+COPY Procfile Procfile
 
 RUN set -x; \
    bundle exec rake assets:precompile
@@ -56,7 +56,7 @@ RUN set -x; \
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 RUN chown -R www-data:www-data /var/lib/nginx
 
-COPY ../cenit.conf /etc/nginx/sites-enabled/cenit.conf
+COPY cenit.conf /etc/nginx/sites-enabled/cenit.conf
 RUN rm /etc/nginx/sites-enabled/default
 
 EXPOSE 80 3000
