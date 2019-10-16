@@ -23,7 +23,7 @@ services:
     command: ["foreman", "start", "-f", "Procfile"]
 
   rabbitmq:
-    image: rabbitmq:3.3-management
+    image: rabbitmq:management
     ports:
       - "15672:15672"
     environment:

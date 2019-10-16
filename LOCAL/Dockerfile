@@ -47,7 +47,7 @@ RUN gem install foreman
 ENV SKIP_MONGO_CLIENT=TRUE
 
 #All copies
-COPY LOCAL/mongoid.yml config/mongoid.yml
+COPY mongoid.yml config/mongoid.yml
 COPY Procfile Procfile
 
 RUN set -x; \
